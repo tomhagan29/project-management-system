@@ -1,0 +1,88 @@
+{% extends "base.html" %} 
+{% load static %}
+
+{% block _head %}
+<link rel="stylesheet" href="{% static 'projects/projects.css' %}" />
+<script src="{% static 'projects/projects.js' %}" async></script>
+{% endblock %}
+
+{% block title %}{{project.title}}{% endblock %} 
+
+{% block nav %}
+<a class="nav-link me-2" href="{% url 'task_create' %}">Create Task</a>
+<a class="nav-link me-2" href="{% url 'project_update' project_id=project.id %}">Edit Project</a>
+<a class="nav-link me-2" href="{% url 'project_delete' project_id=project.id %}">Delete Project</a>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <h1>{{project.title}} ({{project.code}})</h1>
+    </div>
+  </div>
+  <div class="row">
+    <p>Created on: {{project.date_added}}</p>
+    <p class="text-break">{{project.description}}</p>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col task-column">
+      <h4>Todo:</h1>
+        <div class="list-group">
+        {% for task in todo_tasks %}
+        <a
+          href="{% url 'task_details' task_id=task.id %}"
+          id="{{ task.id }}"
+          class="list-group-item"
+          onclick="toggleClass('{{ task.id }}')"
+          >{{ task.reference }}<br>{{ task.title }}</a
+        >
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col mx-1 task-column">
+      <h4>In-Progress:</h1>
+        <div class="list-group">
+          {% for task in in_progress_tasks %}
+          <a
+            href="{% url 'task_details' task_id=task.id %}"
+            id="{{ task.id }}"
+            class="list-group-item"
+            onclick="toggleClass('{{ task.id }}')"
+            >{{ task.reference }}<br>{{ task.title }}</a
+          >
+          {% endfor %}
+        </div>
+    </div>
+    <div class="col mx-1 task-column">
+      <h4>Review:</h1>
+        <div class="list-group">
+          {% for task in review_tasks %}
+          <a
+            href="{% url 'task_details' task_id=task.id %}"
+            id="{{ task.id }}"
+            class="list-group-item"
+            onclick="toggleClass('{{ task.id }}')"
+            >{{ task.reference }}<br>{{ task.title }}</a
+          >
+          {% endfor %}
+        </div>
+    </div>
+    <div class="col">
+      <h4>Completed:</h1>
+        <div class="list-group">
+          {% for task in completed_tasks %}
+          <a
+            href="{% url 'task_details' task_id=task.id %}"
+            id="{{ task.id }}"
+            class="list-group-item"
+            onclick="toggleClass('{{ task.id }}')"
+            >{{ task.reference }}<br>{{ task.title }}</a
+          >
+          {% endfor %}
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

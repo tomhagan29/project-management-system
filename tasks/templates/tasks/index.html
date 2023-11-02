@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block _head %}
+<link rel="stylesheet" href="{% static 'tasks/tasks.css' %}" />
+<script src="{% static 'tasks/tasks.js' %}" async></script>
+{% endblock %}
+
+{% block title %}Tasks{% endblock %} 
+
+{% block content %}
+<div class="container">
+  <div class="row text-center title-container">
+    <h1>Your Tasks</h1>
+  </div>
+
+  <div class="text-center py-2">
+    <button
+      id="new-task-button"
+      class="btn btn-primary"
+      onclick="newTask()"
+      data-url="{% url 'task_create' %}"
+    >
+      New Task
+    </button>
+  </div>
+
+  <div class="row">
+    <div class="col-md-auto container text-center">
+      <div class="list-group">
+        {% for task in tasks %}
+        <a
+          href="{% url 'task_details' task_id=task.id %}"
+          id="{{ task.id }}"
+          class="list-group-item"
+          onclick="toggleClass('{{ task.id }}')"
+          >{{task.reference}} - {{ task.title }}</a
+        >
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

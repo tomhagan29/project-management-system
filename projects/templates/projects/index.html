@@ -1,0 +1,44 @@
+{% extends "base.html" %} 
+{% load static %} 
+
+{% block _head %}
+<link rel="stylesheet" href="{% static 'projects/projects.css' %}" />
+<script src="{% static 'projects/projects.js' %}" async></script>
+{% endblock %} 
+
+{% block title %}Projects{% endblock %} 
+
+{% block content %}
+<div class="container">
+  <div class="row text-center title-container">
+    <h1>Your Projects</h1>
+  </div>
+
+  <div class="text-center py-2">
+    <button
+      id="new-project-button"
+      class="btn btn-primary"
+      onclick="newProject()"
+      data-url="{% url 'project_create' %}"
+    >
+      New Project
+    </button>
+  </div>
+
+  <div class="row">
+    <div class="col-md-auto container text-center">
+      <div class="list-group">
+        {% for project in projects %}
+        <a
+          href="{% url 'project_details' project_id=project.id %}"
+          id="{{ project.id }}"
+          class="list-group-item"
+          onclick="toggleClass('{{ project.id }}')"
+          >{{ project.title }}</a
+        >
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

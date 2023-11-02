@@ -1,0 +1,11 @@
+#button-container {
+    padding-bottom: 20px;
+}
+
+.title-container {
+    padding: 20px;
+}
+
+.task-column {
+    border-right: 1px solid;
+}

@@ -1,0 +1,29 @@
+{% extends "base.html" %} 
+{% load static %}
+
+{% block title%}{{task.reference}}{% endblock %}
+
+{% block nav %}
+<a class="nav-link me-2" href="{% url 'task_update' task_id=task.id %}">Edit Task</a>
+<a class="nav-link me-2" href="{% url 'task_delete' task_id=task.id %}" onclick="confirmDelete()">Delete Task</a>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <h2>{{task.reference}}: {{task.title}}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <p>Status: {{task.status}}</p>
+            <p>Created on: {{task.date_added}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <p>Description:</p><br>
+        <p class="mx-2">{{task.description}}</p>
+    </div>
+</div>
+{% endblock %}
